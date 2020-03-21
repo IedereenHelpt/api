@@ -19,7 +19,9 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: composer install
         run: |
-          docker run --rm -v $PWD:/app -w /app composer install --no-progress --optimize-autoloader --ignore-platform-reqs
+          docker run --rm -v $PWD:/app -w /app composer install \
+            --no-progress --optimize-autoloader --ignore-platform-reqs \
+            --no-suggest --no-dev
       - name: docker php build
         run: |
           docker build -t iedereenhelpt/api-php:${{ github.sha }} -f docker/php/Dockerfile .
