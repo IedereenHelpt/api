@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-php
+  namespace: api-_BRANCH_SLUG_
+  labels:
+    app: api-php
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-php
+  template:
+    metadata:
+      labels:
+        app: api-php
+    spec:
+      containers:
+      - name: api-php
+        image: docker.io/iedereenhelpt/api-php:_COMMIT_
+        imagePullPolicy: Always
+        ports:
+        - name: php
+          containerPort: 9000
+        livenessProbe:
+          tcpSocket:
+            port: 9000
+          initialDelaySeconds: 30
+          periodSeconds: 5
+        env:
+        - name: APP_DEBUG
+          value: 'true'
+        - name: APP_KEY
+          valueFrom:
+            secretKeyRef:
+              name: laravel
+              key: key
+        - name: DB_SERVER
+          value: api-mariadb
+        - name: DB_PORT
+          value: "3306"
+        - name: DB_DATABASE
+          value: iedereenhelpt
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: api-mariadb-credentials
+              key: username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: api-mariadb-credentials
+              key: password
+        - name: PHP_SESSION_HANDLER
+          value: redis
+        - name: PHP_SESSION_PATH
+          value: tcp://api-redis-sessions:6379

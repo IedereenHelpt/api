@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: api-redis-sessions
+  namespace: api-_BRANCH_SLUG_
+spec:
+  selector:
+    app: api-redis-sessions
+  ports:
+  - name: redis
+    protocol: TCP
+    port: 6379
+    targetPort: 6379

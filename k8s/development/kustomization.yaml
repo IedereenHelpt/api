@@ -1,0 +1,9 @@
+resources:
+  - namespace.yaml
+  - secrets.yaml
+
+bases:
+  - mysql
+  - nginx
+  - php
+  - redis
