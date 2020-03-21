@@ -1,0 +1,199 @@
+openapi: 3.0.1
+info:
+  title: IedereenHelpt
+  version: 0.0.3
+servers:
+- url: https://api.iedereenhelpt.dev
+- url: https://api.iedereenhelpt.nl
+paths:
+  '/care-giver/{sub}':
+    get:
+      tags: [CareGiver]
+      summary: Get a care-giver
+      security:
+      - careGiverAuth: []
+      operationId: getCareGiver
+      parameters: 
+      - in: path
+        required: true
+        name: sub
+        schema:
+          type: string
+      responses:
+        200:
+          description: succesful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CareGiver'
+        401:
+          description: Unauthorized
+          content: {}
+        403:
+          description: Forbidden
+        404:
+          description: Not found
+    put:
+      tags: [CareGiver]
+      summary: Upsert a care-giver
+      operationId: upsertCareGiver
+      parameters: 
+      - in: path
+        required: true
+        name: sub
+        schema:
+          type: string
+      requestBody:
+        description: CareGiver object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CareGiver'
+        required: true
+      responses:
+        201:
+          description: succesful operation
+        401:
+          description: Unauthorized
+          content: {}
+        403:
+          description: Forbidden
+        422:
+          description: Validation exception
+          content: {}
+      security:
+      - careGiverAuth: []
+    delete:
+      summary: Delete a care-giver
+      operationId: deleteCareGiver
+      tags: [CareGiver]
+      security:
+      - careGiverAuth: []
+      parameters: 
+      - in: path
+        required: true
+        name: sub
+        schema:
+          type: string
+      responses:
+        204:
+          description: succesful operation
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not found  
+  '/care-request':
+    post:
+      tags: [CareRequest]
+      summary: Create a care-request
+      operationId: createCareRequest
+      requestBody:
+        description: CareRequest object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CareRequest'
+        required: true
+      security:
+      - careRequesterAuth: []
+      responses:
+        201:
+          description: succesful operation
+        422:
+          description: No matches found
+        429:
+          description: Too many requests
+  '/care-request/{uuid}':
+    get:
+      tags: [CareRequest]
+      summary: Get a care-request
+      operationId: getCareRequest
+      parameters: 
+      - in: path
+        required: true
+        name: uuid
+        schema:
+          type: string
+      responses:
+        200:
+          description: succesful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CareRequest'
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+      security: 
+        - careGiverAuth: []
+  '/care-request/{uuid}/care-giver/{sub}/link':     
+    post:
+      tags: [Link]
+      summary: Link request and giver
+      operationId: linkCareRequestToCareGiver
+      parameters: 
+      - in: path
+        required: true
+        name: uuid
+        schema:
+          type: string
+      - in: path
+        required: true
+        name: sub
+        schema:
+          type: string
+      responses:
+        201:
+          description: succesful operation
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not found
+        422:
+          description: Already linked
+      security: 
+        - careGiverAuth: []
+components:
+  schemas:
+    CareGiver:
+      type: object
+      required: [name, email, postalCode]
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        postalCode:
+          type: string
+    CareRequest:
+      type: object
+      required: [uuid, name, phoneNumber, postalCode]
+      properties:
+        uuid:
+          type: string
+        name:
+          type: string
+        phoneNumber:
+          type: string
+        postalCode:
+          type: string
+        subject:
+          type: string
+        careGiver:
+          type: string
+          description: Holds care-givers sub
+          nullable: true
+  securitySchemes:
+    careGiverAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    careRequesterAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
