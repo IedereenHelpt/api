@@ -1,0 +1,14 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: api-nginx
+  namespace: api-_BRANCH_SLUG_
+spec:
+  selector:
+    istio: ingressgateway # use Istio default gateway implementation
+  servers:
+    - hosts: [_BRANCH_SLUG_.iedereenhelpt.dev]
+      port:
+        number: 80
+        name: http
+        protocol: HTTP

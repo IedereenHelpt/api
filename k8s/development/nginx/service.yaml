@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: api-nginx
+  namespace: api-_BRANCH_SLUG_
+spec:
+  clusterIP: None
+  selector:
+    app: api-nginx
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80

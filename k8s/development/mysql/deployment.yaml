@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-mariadb
+  namespace: api-_BRANCH_SLUG_
+  labels:
+    app: api-mariadb
+spec:
+  selector:
+    matchLabels:
+      app: api-mariadb
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: api-mariadb
+    spec:
+      containers:
+      - image: mariadb:10.3
+        name: api-mariadb
+        env:
+          # Use secret in real usage
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: api-mariadb-credentials
+              key: password
+        - name: MYSQL_DATABASE
+          value: iedereenhelpt
+        ports:
+        - containerPort: 3306
+          name: mysql
+        livenessProbe:
+          tcpSocket:
+            port: 3306
+          initialDelaySeconds: 30
+          periodSeconds: 5
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: api-mariadb-pv-claim
