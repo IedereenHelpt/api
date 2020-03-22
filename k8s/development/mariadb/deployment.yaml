@@ -20,7 +20,6 @@ spec:
       - image: mariadb:10.5
         name: api-mariadb
         env:
-          # Use secret in real usage
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
             secretKeyRef:
