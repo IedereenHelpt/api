@@ -5,7 +5,7 @@ metadata:
   namespace: api-_BRANCH_SLUG_
 spec:
   hosts:
-    - _BRANCH_SLUG_.iedereenhelpt.dev
+    - _BRANCH_SLUG_.api.iedereenhelpt.dev
   gateways:
     - api-nginx
   http:
