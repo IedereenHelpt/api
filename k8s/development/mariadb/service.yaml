@@ -4,8 +4,6 @@ metadata:
   name: api-mariadb
   namespace: api-_BRANCH_SLUG_
 spec:
+  clusterIP: None
   ports:
   - port: 3306
-  selector:
-    app: api-mariadb
-  clusterIP: None

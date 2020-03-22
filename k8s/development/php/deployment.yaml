@@ -3,17 +3,9 @@ kind: Deployment
 metadata:
   name: api-php
   namespace: api-_BRANCH_SLUG_
-  labels:
-    app: api-php
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      app: api-php
   template:
-    metadata:
-      labels:
-        app: api-php
     spec:
       containers:
       - name: api-php
