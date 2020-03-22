@@ -5,7 +5,7 @@ metadata:
   namespace: api-_BRANCH_SLUG_
 spec:
   ports:
-  - name: redis
+  - name: tcp-redis
     protocol: TCP
     port: 6379
     targetPort: 6379

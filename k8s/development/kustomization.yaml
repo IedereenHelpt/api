@@ -4,6 +4,7 @@ commonLabels:
 
 resources:
   - namespace.yaml
+  - peer-authentication.yaml
   - sealed-secret.yaml
 
 bases:
