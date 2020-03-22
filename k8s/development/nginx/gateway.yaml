@@ -5,10 +5,22 @@ metadata:
   namespace: api-_BRANCH_SLUG_
 spec:
   selector:
-    istio: ingressgateway # use Istio default gateway implementation
+    istio: ingressgateway
   servers:
-    - hosts: [_BRANCH_SLUG_.iedereenhelpt.dev]
+    - hosts: [_BRANCH_SLUG_.api.iedereenhelpt.dev]
       port:
         number: 80
         name: http
         protocol: HTTP
+      tls:
+        httpsRedirect: true
+    - hosts: [_BRANCH_SLUG_.api.iedereenhelpt.dev]
+      port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: iedereenhelpt-dev-api
+        privateKey: sds
+        serverCertificate: sds

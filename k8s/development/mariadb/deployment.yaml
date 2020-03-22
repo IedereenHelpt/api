@@ -17,7 +17,7 @@ spec:
         app: api-mariadb
     spec:
       containers:
-      - image: mariadb:10.3
+      - image: mariadb:10.5
         name: api-mariadb
         env:
           # Use secret in real usage

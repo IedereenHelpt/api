@@ -20,18 +20,11 @@ spec:
         image: docker.io/iedereenhelpt/api-nginx:_COMMIT_
         imagePullPolicy: Always
         ports:
-        - name: http
+        - name: https
           containerPort: 80
         livenessProbe:
           httpGet:
-            path: /
+            path: /healthz
             port: 80
-          initialDelaySeconds: 120
+          initialDelaySeconds: 10
           periodSeconds: 5
-        volumeMounts:
-          - name: nginx-cfg
-            mountPath: /etc/nginx/conf.d
-      volumes:
-        - name: nginx-cfg
-          configMap:
-            name: nginx-cfg

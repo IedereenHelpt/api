@@ -3,7 +3,7 @@ resources:
   - secrets.yaml
 
 bases:
-  - mysql
+  - mariadb
   - nginx
   - php
   - redis

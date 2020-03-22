@@ -1,12 +1,5 @@
 resources:
   - deployment.yaml
   - gateway.yaml
-  - ingress.yaml
   - service.yaml
   - virtual-service.yaml
-
-configMapGenerator:
-  - name: nginx-cfg
-    namespace: api-_BRANCH_SLUG_
-    files:
-      - config/default.conf
