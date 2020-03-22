@@ -1,0 +1,28 @@
+version: '3'
+services:
+  api-php:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    volumes:
+      - .:/var/www/html:cached
+      - ./docker/php/config/php.ini.dev:/etc/php7/php.ini:cached
+
+  api-nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    volumes:
+      - .:/var/www/html:cached
+    ports:
+      - "8080:80"
+
+  api-db:
+    image: mariadb:10.3
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: iedereenhelpt
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USERNAME: user
+      MYSQL_PASSWORD: secret

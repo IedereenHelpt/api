@@ -1,0 +1,6 @@
+date.timezone = Europe/Amsterdam
+
+realpath_cache_size = 4M
+
+session.save_handler = ${PHP_SESSION_HANDLER}
+session.save_path = ${PHP_SESSION_PATH}
