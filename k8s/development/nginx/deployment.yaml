@@ -3,17 +3,9 @@ kind: Deployment
 metadata:
   name: api-nginx
   namespace: api-_BRANCH_SLUG_
-  labels:
-    app: api-nginx
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      app: api-nginx
   template:
-    metadata:
-      labels:
-        app: api-nginx
     spec:
       containers:
       - name: api-nginx

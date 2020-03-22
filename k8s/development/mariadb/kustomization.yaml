@@ -1,3 +1,6 @@
+commonLabels:
+  component: mariadb
+
 resources:
   - deployment.yaml
   - persistent-volume-claim.yaml

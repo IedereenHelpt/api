@@ -1,3 +1,7 @@
+commonLabels:
+  environment: development
+  app: api
+
 resources:
   - namespace.yaml
   - sealed-secret.yaml

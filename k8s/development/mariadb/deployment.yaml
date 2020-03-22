@@ -3,18 +3,10 @@ kind: Deployment
 metadata:
   name: api-mariadb
   namespace: api-_BRANCH_SLUG_
-  labels:
-    app: api-mariadb
 spec:
-  selector:
-    matchLabels:
-      app: api-mariadb
   strategy:
     type: Recreate
   template:
-    metadata:
-      labels:
-        app: api-mariadb
     spec:
       containers:
       - image: mariadb:10.5

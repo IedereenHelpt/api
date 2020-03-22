@@ -1,3 +1,6 @@
+commonLabels:
+  component: php
+
 resources:
   - deployment.yaml
   - sealed-secret.yaml
