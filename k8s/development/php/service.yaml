@@ -5,6 +5,7 @@ metadata:
   namespace: api-_BRANCH_SLUG_
 spec:
   ports:
-  - protocol: TCP
+  - name: tcp-php
+    protocol: TCP
     port: 9000
     targetPort: 9000

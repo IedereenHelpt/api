@@ -1,0 +1,8 @@
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: default
+  namepace: api-_BRANCH_SLUG_
+spec:
+  mtls:
+    mode: STRICT
