@@ -1,4 +1,4 @@
 resources:
   - deployment.yaml
-  - secret.yaml
+  - sealed-secret.yaml
   - service.yaml
