@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: api-nginx
+  namespace: api-_BRANCH_SLUG_
+spec:
+  hosts:
+    - _BRANCH_SLUG_.iedereenhelpt.dev
+  gateways:
+    - api-nginx
+  http:
+  - route:
+    - destination:
+        host: api-nginx
+        port:
+          number: 80

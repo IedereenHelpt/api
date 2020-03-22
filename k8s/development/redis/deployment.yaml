@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-redis-sessions
+  namespace: api-_BRANCH_SLUG_
+  labels:
+    app: api-redis-sessions
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-redis-sessions
+  template:
+    metadata:
+      labels:
+        app: api-redis-sessions
+    spec:
+      containers:
+      - name: api-redis-sessions
+        image: redis:5.0
+        ports:
+        - name: redis
+          containerPort: 6379
